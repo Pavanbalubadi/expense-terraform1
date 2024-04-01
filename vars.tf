@@ -12,7 +12,6 @@ variable "default_vpc_id" {}
 variable "default_vpc_cidr" {}
 
 ##rds
-variable "subnets" {}
 variable "sg_cidrs" {}
 variable "kms_key" {}
 variable "rds_allocated_storage" {}
