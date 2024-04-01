@@ -10,3 +10,12 @@ variable "default_route_table_id" {}
 variable "account_id" {}
 variable "default_vpc_id" {}
 variable "default_vpc_cidr" {}
+
+##rds
+variable "subnets" {}
+variable "sg_cidrs" {}
+variable "kms_key" {}
+variable "rds_allocated_storage" {}
+variable "rds_engine" {}
+variable "rds_instance_class" {}
+variable "rds_engine_version" {}
