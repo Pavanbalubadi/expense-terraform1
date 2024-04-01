@@ -25,6 +25,5 @@ rds_instance_class    = "db.t3.micro"
 
 
 
-route53_zone_id  ="Z0884885ZSESFET2B3ZQ"
+
 kms_key            = "arn:aws:kms:us-east-1:955993398443:key/a0d0f53d-84ee-402a-9294-2b56af39a9d5"
-certificate_arn  = "arn:aws:acm:us-east-1:955993398443:certificate/0752a7d4-f672-4af5-990a-c25494c91cda"
