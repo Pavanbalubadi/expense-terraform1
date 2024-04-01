@@ -18,7 +18,7 @@ default_vpc_cidr="172.31.0.0/16"
 
 
 ##rds
-allocated_storage    = 20
-engine               = "mysql"
-engine_version       = "5.7.44"
-instance_class       = "db.t3.micro"
+rds_allocated_storage = 20
+rds_engine            = "mysql"
+rds_engine_version    = "5.7.44"
+rds_instance_class    = "db.t3.micro"
