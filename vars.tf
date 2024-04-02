@@ -17,3 +17,18 @@ variable "rds_engine" {}
 variable "rds_instance_class" {}
 variable "rds_engine_version" {}
 variable "kms_key" {}
+
+
+###
+variable "backend" {}
+variable "frontend" {}
+variable "bastion_cidrs" {}
+variable "component" {}
+variable "sg_cidrs" {}
+variable "subnets" {}
+variable "public-alb" {}
+variable "backend-alb" {}
+
+##
+variable "certificate_arn" {}
+variable "route53_zone_id" {}

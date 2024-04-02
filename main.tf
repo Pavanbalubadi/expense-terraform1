@@ -27,7 +27,7 @@ module "rds" {
   kms_key                   = var.kms_key
 }
 
-module"backend"{
+odule"backend"{
   depends_on = [module.backend-alb,module.public-alb,module.rds]
   source = "./modules/app"
   app_port = var.backend["app_port"]
@@ -42,7 +42,6 @@ module"backend"{
   tags = var.tags
   vpc_id = module.vpc.vpc_id
 }
-
 
 module"frontend"{
   depends_on = [module.backend-alb,module.public-alb]
