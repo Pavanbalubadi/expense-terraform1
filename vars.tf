@@ -23,7 +23,6 @@ variable "kms_key" {}
 variable "backend" {}
 variable "frontend" {}
 variable "bastion_cidrs" {}
-variable "component" {}
 variable "public-alb" {}
 variable "backend-alb" {}
 
