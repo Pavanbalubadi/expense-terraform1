@@ -37,8 +37,8 @@ module"backend"{
   instance_count = var.backend["instance_count"]
   instance_type = var.backend["instance_type"]
   kms_key = var.kms_key
-  sg_cidrs = var.sg_cidrs
-  subnets = var.subnets
+  sg_cidrs = var.app_subnets
+  subnets = module.vpc.app_subnets
   tags = var.tags
   vpc_id = module.vpc.vpc_id
 }
@@ -53,8 +53,8 @@ module"frontend"{
   instance_count = var.frontend["instance_count"]
   instance_type = var.frontend["instance_type"]
   kms_key = var.kms_key
-  sg_cidrs = var.sg_cidrs
-  subnets = var.subnets
+  sg_cidrs = var.public_subnets
+  subnets = module.vpc.web_subnets
   tags = var.tags
   vpc_id = module.vpc.vpc_id
 }

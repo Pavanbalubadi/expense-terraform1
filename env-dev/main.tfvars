@@ -37,13 +37,13 @@ frontend = {
 
 bastion_cidrs = ["172.31.2.164/32"]
 
-public_alb = {
+public-alb = {
   internal     = false
   lb_port      = 80
   component    = "frontend"
   enable_https = true
 }
-backend_alb = {
+backend-alb = {
   internal     = true
   lb_port      = 80
   component    = "backend"
