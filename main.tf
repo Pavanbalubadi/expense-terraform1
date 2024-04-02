@@ -32,7 +32,7 @@ module"backend"{
   source = "./modules/app"
   app_port = var.backend["app_port"]
   bastion_cidrs = var.bastion_cidrs
-  component = var.component
+  component = var.backend["component"]
   env = var.env
   instance_count = var.backend["instance_count"]
   instance_type = var.backend["instance_type"]
@@ -48,7 +48,7 @@ module"frontend"{
   source = "./modules/app"
   app_port = var.frontend["app_port"]
   bastion_cidrs = var.bastion_cidrs
-  component = var.component
+  component = var.frontend["component"]
   env = var.env
   instance_count = var.frontend["instance_count"]
   instance_type = var.frontend["instance_type"]
@@ -68,7 +68,6 @@ module"public-alb"{
   subnets          = module.vpc.public_subnets
   tags             = var.tags
   target_group_arn = module.frontend.target_group_arn
-  type             = var.public_alb["type"]
   vpc_id           = module.vpc.vpc_id
   component        = var.public_alb["component"]
   route53_zone_id  = var.route53_zone_id
@@ -76,16 +75,17 @@ module"public-alb"{
   certificate_arn  = var.certificate_arn
 }
 module "backend-alb" {
-  source = "./modules/app"
-  app_port = var.backend-alb["app_port"]
-  bastion_cidrs = var.bastion_cidrs
-  component = var.backend-alb["component"]
-  env = var.env
-  instance_count = var.backend-alb["instance_count"]
-  instance_type = var.backend-alb["instance_type "]
-  kms_key = var.kms_key
-  sg_cidrs = var.web_subnets
-  subnets = module.vpc.app_subnets
-  tags = var.tags
-  vpc_id = module.vpc.vpc_id
+  source           = "./modules/alb"
+  env              = var.env
+  internal         = var.backend_alb["internal"]
+  lb_port          = var.backend_alb["lb_port"]
+  sg_cidrs         = var.web_subnets
+  subnets          = module.vpc.app_subnets
+  tags             = var.tags
+  target_group_arn = module.frontend.target_group_arn
+  vpc_id           = module.vpc.vpc_id
+  component        = var.backend_alb["component"]
+  route53_zone_id  = var.route53_zone_id
+  enable_https     = var.backend_alb["enable_https"]
+  certificate_arn  = var.certificate_arn
 }
