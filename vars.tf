@@ -23,8 +23,8 @@ variable "kms_key" {}
 variable "backend" {}
 variable "frontend" {}
 variable "bastion_cidrs" {}
-variable "public-alb" {}
-variable "backend-alb" {}
+variable "public_alb" {}
+variable "backend_alb" {}
 
 ##
 variable "certificate_arn" {}
