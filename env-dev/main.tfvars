@@ -23,7 +23,36 @@ rds_engine            = "mysql"
 rds_engine_version    = "5.7.44"
 rds_instance_class    = "db.t3.micro"
 
+##app
+backend = {
+  app_port       = 8080
+  instance_count = 1
+  instance_type  = "t3.small"
+}
+frontend = {
+  app_port       = 80
+  instance_count = 1
+  instance_type  = "t3.small"
+}
+
+bastion_cidrs = ["172.31.2.164/32"]
+
+public_alb = {
+  internal     = false
+  lb_port      = 80
+  component    = "frontend"
+  enable_https = true
+}
+backend_alb = {
+  internal     = true
+  lb_port      = 80
+  component    = "backend"
+  enable_https = false
+}
+
+route53_zone_id  ="Z0884885ZSESFET2B3ZQ"
+kms              = "arn:aws:kms:us-east-1:955993398443:key/a0d0f53d-84ee-402a-9294-2b56af39a9d5"
+certificate_arn  = "arn:aws:acm:us-east-1:955993398443:certificate/0752a7d4-f672-4af5-990a-c25494c91cda"
 
 
-
-kms_key            = "arn:aws:kms:us-east-1:955993398443:key/a0d0f53d-84ee-402a-9294-2b56af39a9d5"
+}
