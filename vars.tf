@@ -22,3 +22,6 @@ variable "default_vpc_cidr" {}
 variable "backend" {}
 variable "frontend" {}
 variable "bastion_cidrs" {}
+variable "public-alb" {}
+variable "target_group_arn" {}
+

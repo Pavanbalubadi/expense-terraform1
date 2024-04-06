@@ -27,7 +27,7 @@ rds_instance_class    = "db.t3.micro"
 backend = {
   app_port       = 8080
   instance_count = 1
-  instance_type  = "t3.small"
+  instance_type  = "t3.micro"
 }
 frontend = {
   app_port       = 80
@@ -42,12 +42,14 @@ public_alb = {
   lb_port      = 80
   component    = "frontend"
   enable_https = true
+  type         = "public"
 }
 backend_alb = {
   internal     = true
   lb_port      = 80
   component    = "backend"
   enable_https = false
+  type        = "public"
 }
 
 route53_zone_id  ="Z0884885ZSESFET2B3ZQ"
