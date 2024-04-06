@@ -46,12 +46,13 @@ resource "aws_launch_template" "main" {
   }
 }
 
+
 resource "aws_autoscaling_group" "main" {
   desired_capacity    = var.instance_count
   max_size            = var.instance_count +5
   min_size            = var.instance_count
   vpc_zone_identifier = var.subnets
-  tags       = merge(var.tags, { Name = "${var.env}-${var.component}" })
+  target_group_arns = [aws_lb_target_group.main.arn]
 
   launch_template {
     id      = aws_launch_template.main.id
@@ -67,9 +68,13 @@ resource "aws_autoscaling_group" "main" {
     value               = "true"
     propagate_at_launch = true
   }
-
 }
-
+resource "aws_lb_target_group" "main" {
+  name     = "${var.env}-${var.component}"
+  port     = var.app_port
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
 resource "aws_iam_role" "main" {
   name = "${var.env}-${var.component}"
   assume_role_policy = jsonencode({
