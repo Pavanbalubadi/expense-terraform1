@@ -57,13 +57,25 @@ module "frontend" {
 module "public-alb" {
   source = "./modules/alb"
   env    = var.env
-  internal = var.public-alb["internal"]
-  lb_port = var.public-alb["lb_port"]
+  internal = var.public_alb["internal"]
+  lb_port = var.public_alb["lb_port"]
   sg_cidrs = [0.0.0.0/0]
   subnets = module.vpc.public_subnets
   tags = var.tags
   target_group_arn = var.target_group_arn
-  type = var.public-alb["type"]
+  type = var.public_alb["type"]
+  vpc_id = module.vpc.vpc_id
+}
+module "backend-alb" {
+  source = "./modules/alb"
+  env    = var.env
+  internal = var.backend_alb["internal"]
+  lb_port = var.backend_alb["lb_port"]
+  sg_cidrs = var.web_subnets
+  subnets = module.vpc.app_subnets
+  tags = var.tags
+  target_group_arn = var.target_group_arn
+  type = var.backend_alb["type"]
   vpc_id = module.vpc.vpc_id
 }
 
