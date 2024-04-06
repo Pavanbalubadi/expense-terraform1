@@ -149,8 +149,4 @@ resource "aws_iam_instance_profile" "main" {
   name = "${var.env}-${var.component}"
   role = aws_iam_role.main.name
 }
-data "aws_ami" "ami" {
-  most_recent = true
-  name_regex  = "Centos-8-DevOps-Practice"
-  owners      = ["955993398443"]
-}
+
