@@ -24,5 +24,5 @@ variable "frontend" {}
 variable "bastion_cidrs" {}
 variable "public_alb" {}
 variable "backend_alb" {}
-variable "target_group_arn" {}
+
 

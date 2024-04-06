@@ -62,7 +62,7 @@ module "public-alb" {
   sg_cidrs = ["0.0.0.0/0"]
   subnets = module.vpc.public_subnets
   tags = var.tags
-  target_group_arn = var.target_group_arn
+  target_group_arn = module.frontend.target_group_arn
   type = var.public_alb["type"]
   vpc_id = module.vpc.vpc_id
 }
@@ -74,7 +74,7 @@ module "backend-alb" {
   sg_cidrs = var.web_subnets
   subnets = module.vpc.app_subnets
   tags = var.tags
-  target_group_arn = var.target_group_arn
+  target_group_arn = module.backend.target_group_arn
   type = var.backend_alb["type"]
   vpc_id = module.vpc.vpc_id
 }
