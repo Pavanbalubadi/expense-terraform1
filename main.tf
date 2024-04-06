@@ -59,7 +59,7 @@ module "public-alb" {
   env    = var.env
   internal = var.public_alb["internal"]
   lb_port = var.public_alb["lb_port"]
-  sg_cidrs = [0.0.0.0/0]
+  sg_cidrs = ["0.0.0.0/0"]
   subnets = module.vpc.public_subnets
   tags = var.tags
   target_group_arn = var.target_group_arn
