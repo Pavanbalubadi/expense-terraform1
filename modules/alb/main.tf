@@ -1,6 +1,6 @@
 resource "aws_security_group" "main" {
-  name        = "${var.env}-${var.type}-alv"
-  description = "${var.env}-${var.type}-alv"
+  name        = "${var.env}-${var.type}-alb"
+  description = "${var.env}-${var.type}-alb"
   vpc_id      = var.vpc_id
 
   ingress {
