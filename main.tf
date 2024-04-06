@@ -13,19 +13,19 @@ module "vpc" {
   default_route_table_id = var.default_route_table_id
   default_vpc_cidr       = var.default_vpc_cidr
 }
-module "rds" {
-  source                = "./modules/rds"
-  subnets               = module.vpc.db_subnets
-  env                   = var.env
-  rds_allocated_storage = var.rds_allocated_storage
-  rds_engine            = var.rds_engine
-  rds_engine_version    = var.rds_engine_version
-  rds_instance_class    = var.rds_instance_class
-  sg_cidrs              = var.app_subnets
-  tags                  = var.tags
-  vpc_id                = module.vpc.vpc_id
-  kms_key                   = var.kms_key
-}
+#module "rds" {
+ # source                = "./modules/rds"
+  #subnets               = module.vpc.db_subnets
+  #env                   = var.env
+  #rds_allocated_storage = var.rds_allocated_storage
+  #rds_engine            = var.rds_engine
+  #rds_engine_version    = var.rds_engine_version
+  #rds_instance_class    = var.rds_instance_class
+  #sg_cidrs              = var.app_subnets
+  #tags                  = var.tags
+  #vpc_id                = module.vpc.vpc_id
+  #kms_key                   = var.kms_key
+#}
 module "backend" {
   source = "./modules/app"
   app_port = var.backend["app_port"]
@@ -37,4 +37,5 @@ module "backend" {
   subnets = module.vpc.app_subnets
   tags = var.tags
   vpc_id = module.vpc.vpc_id
+  bastion_cidrs = var.bastion_cidrs
 }

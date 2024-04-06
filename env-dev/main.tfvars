@@ -32,7 +32,7 @@ backend = {
 frontend = {
   app_port       = 80
   instance_count = 1
-  instance_type  = "t3.small"
+  instance_type  = "t3.micro"
 }
 
 bastion_cidrs = ["172.31.2.164/32"]

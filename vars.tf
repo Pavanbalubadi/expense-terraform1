@@ -20,3 +20,4 @@ variable "kms_key" {}
 
 ##
 variable "backend" {}
+variable "bastion_cidrs" {}

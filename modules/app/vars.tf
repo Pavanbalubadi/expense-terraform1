@@ -7,3 +7,4 @@ variable "instance_type" {}
 variable "instance_count" {}
 variable "subnets" {}
 variable "app_port" {}
+variable "bastion_cidrs" {}
