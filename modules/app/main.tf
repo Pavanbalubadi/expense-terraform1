@@ -29,8 +29,6 @@ resource "aws_security_group" "main" {
   tags       = merge(var.tags, { Name = "${var.env}-${var.component}" })
 }
 
-
-
 resource "aws_launch_template" "main" {
   name                = "${var.env}-${var.component}"
   image_id            = data.aws_ami.ami.image_id
@@ -151,4 +149,8 @@ resource "aws_iam_instance_profile" "main" {
   name = "${var.env}-${var.component}"
   role = aws_iam_role.main.name
 }
-
+data "aws_ami" "ami" {
+  most_recent = true
+  name_regex  = "Centos-8-DevOps-Practice"
+  owners      = ["955993398443"]
+}
