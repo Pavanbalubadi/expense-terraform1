@@ -20,4 +20,5 @@ variable "default_vpc_cidr" {}
 
 ##
 variable "backend" {}
+variable "frontend" {}
 variable "bastion_cidrs" {}
