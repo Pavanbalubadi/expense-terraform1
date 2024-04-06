@@ -35,7 +35,7 @@ resource "aws_launch_template" "main" {
   name                = "${var.env}-${var.component}"
   image_id            = data.aws_ami.ami.image_id
   instance_type        = var.instance_type
-  vpc_security_group_id =[aws_security_group.main.id]
+  vpc_security_group_ids =[aws_security_group.main.id]
   tags                   = merge(var.tags, { Name = "${var.env}-${var.component}" })
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     role_name = var.component
