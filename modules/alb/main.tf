@@ -1,51 +1,22 @@
-resource "aws_security_group" "main" {
-  name        = "${var.env}-${var.component}-alb"
-  description = "${var.env}-${var.component}-alb"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    description = "APP"
-    from_port   = var.lb_port
-    to_port     = var.lb_port
-    protocol    = "tcp"
-    cidr_blocks = var.sg_cidrs
-  }
-
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags       = merge(var.tags, { Name = "${var.env}-${var.component}-alb" })
+resource "aws_launch_template" "main" {
+  name          = "${var.env}-${var.component}"
+  image_id      = "ami-1a2b3c"
+  instance_type = var.instance_type
 }
 
-resource "aws_lb" "main" {
-  name               = "${var.env}-${var.type}"
-  internal           = var.internal
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.main.id]
-  subnets            = var.subnets
-  tags               = merge(var.tags, { Name = "${var.env}-${var.type}-alb" })
-}
-resource "aws_lb_listener" "main" {
-  count             = var.enable_https ? 0 : 1
-  load_balancer_arn = aws_lb.main.arn
-  port              = "80"
-  protocol          = "HTTP"
+resource "aws_autoscaling_group" "main" {
+  availability_zones = ["us-east-1a"]
+  desired_capacity   = 1
+  max_size           = 1
+  min_size           = 1
 
-  default_action {
-    type             = "forward"
-    target_group_arn = var.target_group_arn
+  launch_template {
+    id      = aws_launch_template.main.id
+    version = "$Latest"
   }
 }
-resource "aws_route53_record" "main" {
-  name    = "${var.env}-${var.component}"
-  type    = "CNAME"
-  zone_id = var.route53_zone_id
-  ttl     = 30
-  records = "${var.env}-${var.component}"
+data "aws_ami" "ami" {
+  most_recent      = true
+  name_regex       = "Centos-8-DevOps-Practice"
+  owners           = "955993398443"
 }
