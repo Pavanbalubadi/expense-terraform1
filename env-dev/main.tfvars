@@ -49,7 +49,7 @@ backend_alb = {
   lb_port      = 80
   component    = "backend"
   enable_https = false
-  type        = "public"
+  type        = "backend"
 }
 
 route53_zone_id  ="Z0884885ZSESFET2B3ZQ"
