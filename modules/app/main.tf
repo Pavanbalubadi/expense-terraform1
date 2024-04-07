@@ -42,6 +42,17 @@ resource "aws_launch_template" "main" {
   iam_instance_profile {
     name= aws_iam_instance_profile.main.name
   }
+
+  block_device_mappings {
+    device_name = "/dev/sda1"
+
+    ebs {
+      volume_size           = 10
+      encrypted             = true
+      kms_key_id            = var.kms_key
+      delete_on_termination = true
+    }
+  }
 }
 
 
@@ -72,6 +83,17 @@ resource "aws_lb_target_group" "main" {
   port     = var.app_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+  deregistration_delay = 10
+
+  health_check {
+    enabled             = true
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    interval            = 5
+    matcher             = 200
+    path                = "/health"
+    timeout             = 2
+  }
 }
 resource "aws_iam_role" "main" {
   name = "${var.env}-${var.component}"

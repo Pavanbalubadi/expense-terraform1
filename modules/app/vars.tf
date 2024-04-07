@@ -8,3 +8,4 @@ variable "instance_count" {}
 variable "subnets" {}
 variable "app_port" {}
 variable "bastion_cidrs" {}
+variable "kms_key" {}
