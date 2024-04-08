@@ -59,7 +59,7 @@ resource "aws_launch_template" "main" {
 resource "aws_autoscaling_group" "main" {
   name                = "${var.env}-${var.component}"
   desired_capacity    = var.instance_count
-  max_size            = var.instance_count
+  max_size            = var.instance_count +5
   min_size            = var.instance_count
   vpc_zone_identifier = var.subnets
   target_group_arns = [aws_lb_target_group.main.arn]
