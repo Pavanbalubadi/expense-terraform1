@@ -72,13 +72,17 @@ resource "aws_autoscaling_group" "main" {
     value               = "${var.env}-${var.component}"
     propagate_at_launch = true
   }
+  tag {
+    key                 = "Monitor"
+    value               = "true"
+    propagate_at_launch = true
+  }
 }
 resource "aws_lb_target_group" "main" {
   name     = "${var.env}-${var.component}"
   port     = var.app_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
-
 }
 resource "aws_iam_role" "main" {
   name = "${var.env}-${var.component}"
