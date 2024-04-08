@@ -59,7 +59,7 @@ resource "aws_launch_template" "main" {
 resource "aws_autoscaling_group" "main" {
   name                = "${var.env}-${var.component}"
   desired_capacity    = var.instance_count
-  max_size            = var.instance_count +5
+  max_size            = var.instance_count
   min_size            = var.instance_count
   vpc_zone_identifier = var.subnets
   target_group_arns = [aws_lb_target_group.main.arn]
@@ -86,15 +86,6 @@ resource "aws_lb_target_group" "main" {
   vpc_id   = var.vpc_id
   deregistration_delay = 10
 
-  health_check {
-    enabled             = true
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
-    interval            = 5
-    matcher             = 200
-    path                = "/health"
-    timeout             = 2
-  }
 }
 resource "aws_iam_role" "main" {
   name = "${var.env}-${var.component}"
