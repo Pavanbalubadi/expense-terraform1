@@ -13,19 +13,19 @@ module "vpc" {
   default_route_table_id = var.default_route_table_id
   default_vpc_cidr       = var.default_vpc_cidr
 }
-#module "rds" {
- # source                = "./modules/rds"
-  #subnets               = module.vpc.db_subnets
-  #env                   = var.env
-  #rds_allocated_storage = var.rds_allocated_storage
-  #rds_engine            = var.rds_engine
-  #rds_engine_version    = var.rds_engine_version
-  #rds_instance_class    = var.rds_instance_class
-  #sg_cidrs              = var.app_subnets
-  #tags                  = var.tags
-  #vpc_id                = module.vpc.vpc_id
-  #kms_key                   = var.kms_key
-#}
+module "rds" {
+  source                = "./modules/rds"
+  subnets               = module.vpc.db_subnets
+  env                   = var.env
+  rds_allocated_storage = var.rds_allocated_storage
+  rds_engine            = var.rds_engine
+  rds_engine_version    = var.rds_engine_version
+  rds_instance_class    = var.rds_instance_class
+  sg_cidrs              = var.app_subnets
+  tags                  = var.tags
+  vpc_id                = module.vpc.vpc_id
+  kms_key                   = var.kms_key
+}
 module "backend" {
   source = "./modules/app"
   app_port = var.backend["app_port"]
@@ -38,6 +38,7 @@ module "backend" {
   tags = var.tags
   vpc_id = module.vpc.vpc_id
   bastion_cidrs = var.bastion_cidrs
+  kms_key = var.kms_key
 }
 
 module "frontend" {
@@ -52,6 +53,7 @@ module "frontend" {
   tags = var.tags
   vpc_id = module.vpc.vpc_id
   bastion_cidrs = var.bastion_cidrs
+  kms_key = var.kms_key
 }
 
 module "public-alb" {
@@ -65,6 +67,9 @@ module "public-alb" {
   target_group_arn = module.frontend.target_group_arn
   type = var.public_alb["type"]
   vpc_id = module.vpc.vpc_id
+  certificate_arn = var.certificate_arn
+  enable_https = var.public_alb["enable_https"]
+  route53_zone_id = var.route53_zone_id
 }
 module "backend-alb" {
   source = "./modules/alb"
@@ -77,5 +82,9 @@ module "backend-alb" {
   target_group_arn = module.backend.target_group_arn
   type = var.backend_alb["type"]
   vpc_id = module.vpc.vpc_id
+  certificate_arn = var.certificate_arn
+  enable_https = var.backend_alb["enable_https"]
+  route53_zone_id = var.route53_zone_id
 }
+
 
