@@ -27,7 +27,6 @@ module "rds" {
   kms_key                   = var.kms_key
 }
 module "backend" {
-  depends_on       = [module.rds]
   source = "./modules/app"
   app_port = var.backend["app_port"]
   component = "backend"
