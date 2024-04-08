@@ -27,12 +27,12 @@ rds_instance_class    = "db.t3.micro"
 backend = {
   app_port       = 8080
   instance_count = 1
-  instance_type  = "t3.small"
+  instance_type  = "t3.micro"
 }
 frontend = {
   app_port       = 80
   instance_count = 1
-  instance_type  = "t3.small"
+  instance_type  = "t3.micro"
 }
 
 bastion_cidrs = ["172.31.2.164/32"]
