@@ -26,6 +26,7 @@ rds_instance_class    = "db.t3.micro"
 ##app
 backend = {
   app_port       = 8080
+  component ="backend"
   instance_count = 1
   instance_type  = "t3.micro"
 }
