@@ -34,7 +34,7 @@ backend = {
 frontend = {
   app_port       = 80
   instance_count = 1
-  instance_type  = "t3.micro"
+  instance_type  = "t3.small"
   component ="frontend"
 }
 
