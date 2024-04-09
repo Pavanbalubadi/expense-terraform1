@@ -29,30 +29,17 @@ backend = {
   component ="backend"
   instance_count = 1
   instance_type  = "t3.small"
-  component ="frontend"
+
 }
 frontend = {
   app_port       = 80
   instance_count = 1
   instance_type  = "t3.micro"
+  component ="frontend"
 }
 
 bastion_cidrs = ["172.31.2.164/32"]
 
-public_alb = {
-  internal     = false
-  lb_port      = 80
-  component    = "frontend"
-  enable_https = true
-  type         = "public"
-}
-backend_alb = {
-  internal     = true
-  lb_port      = 80
-  component    = "backend"
-  enable_https = false
-  type        = "backend"
-}
 
 route53_zone_id  ="Z0884885ZSESFET2B3ZQ"
 kms_key            = "arn:aws:kms:us-east-1:955993398443:key/a0d0f53d-84ee-402a-9294-2b56af39a9d5"
