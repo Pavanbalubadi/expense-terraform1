@@ -102,6 +102,7 @@ resource "aws_iam_role" "main" {
             "arn:aws:ssm:us-east-1:955993398443:parameter/${var.env}.${var.component}.*",
             "arn:aws:ssm:us-east-1:955993398443:parameter/NEW_RELIC_API_KEY",
             "arn:aws:ssm:us-east-1:955993398443:parameter/NEWRELIC_LICENSE_KEY",
+            "arn:aws:ssm:us-east-1:955993398443:parameter/newrelic.licence_key",
             "arn:aws:ssm:us-east-1:955993398443:parameter/grafana_api_key",
             "arn:aws:ssm:us-east-1:955993398443:parameter/${var.env}.rds.*",
             "arn:aws:ssm:us-east-1:955993398443:parameter/jenkins.*",
