@@ -39,12 +39,15 @@ resource "aws_launch_template" "main" {
     role_name = var.component
     env       = var.env
   }))
+  iam_instance_profile {
+    name = aws_iam_instance_profile.main.name
+  }
 }
 
 resource "aws_autoscaling_group" "main" {
   name               = "${var.env}-${var.component}"
   desired_capacity   = var.instance_count
-  max_size           = var.instance_count +2
+  max_size           = var.instance_count +1
   min_size           = var.instance_count
   vpc_zone_identifier = var.subnets
 
