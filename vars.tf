@@ -22,8 +22,6 @@ variable "kms_key" {}
 variable "backend" {}
 variable "frontend" {}
 variable "bastion_cidrs" {}
-variable "public_alb" {}
-variable "backend_alb" {}
 variable "certificate_arn" {}
 variable "route53_zone_id" {}
 
